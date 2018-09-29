@@ -24,7 +24,8 @@ namespace Lab1
             Graphics gr = Graphics.FromImage(bmp);
             ship.DrawShip(gr);
             pictureBoxShip.Image = bmp;
-        }
+        }
+
 
         private void buttonMove_Click(object sender, EventArgs e)
         {
@@ -33,17 +34,17 @@ namespace Lab1
             switch (name)
             {
                 case "buttonUp":
-                    ship.MoveTransport(Ship.Direction.Up);
+                    ship.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    ship.MoveTransport(Ship.Direction.Down);
+                    ship.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    ship.MoveTransport(Ship.Direction.Left);
+                    ship.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
 
-                    ship.MoveTransport(Ship.Direction.Right);
+                    ship.MoveTransport(Direction.Right);
                     break;
             }
             Draw();

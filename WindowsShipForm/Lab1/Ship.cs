@@ -9,14 +9,6 @@ namespace Lab1
 {
     class Ship
     {
-        public enum Direction
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
-
         /// <summary>
         /// Левая координата отрисовки корабля
         /// </summary>
@@ -113,7 +105,8 @@ namespace Lab1
             _startPosY = y;
             _pictureWidth = width;
             _pictureHeight = height;
-        }
+        }
+
 
         public void MoveTransport(Direction direction)
         {
@@ -149,7 +142,8 @@ namespace Lab1
                     }
                     break;
             }
-        }
+        }
+
         public void DrawShip(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
