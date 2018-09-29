@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.pictureBoxShip = new System.Windows.Forms.PictureBox();
-            this.bottonCreate = new System.Windows.Forms.Button();
+            this.bottonCreateWar = new System.Windows.Forms.Button();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
+            this.buttonCreateCruiser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,15 +47,15 @@
             this.pictureBoxShip.TabIndex = 0;
             this.pictureBoxShip.TabStop = false;
             // 
-            // bottonCreate
+            // bottonCreateWar
             // 
-            this.bottonCreate.Location = new System.Drawing.Point(12, 12);
-            this.bottonCreate.Name = "bottonCreate";
-            this.bottonCreate.Size = new System.Drawing.Size(75, 23);
-            this.bottonCreate.TabIndex = 1;
-            this.bottonCreate.Text = "Create";
-            this.bottonCreate.UseVisualStyleBackColor = true;
-            this.bottonCreate.Click += new System.EventHandler(this.bottonCreate_Click);
+            this.bottonCreateWar.Location = new System.Drawing.Point(12, 12);
+            this.bottonCreateWar.Name = "bottonCreateWar";
+            this.bottonCreateWar.Size = new System.Drawing.Size(83, 23);
+            this.bottonCreateWar.TabIndex = 1;
+            this.bottonCreateWar.Text = "CreateWar";
+            this.bottonCreateWar.UseVisualStyleBackColor = true;
+            this.bottonCreateWar.Click += new System.EventHandler(this.bottonCreateWar_Click);
             // 
             // buttonUp
             // 
@@ -100,16 +101,27 @@
             this.buttonDown.UseVisualStyleBackColor = true;
             this.buttonDown.Click += new System.EventHandler(this.buttonMove_Click);
             // 
+            // buttonCreateCruiser
+            // 
+            this.buttonCreateCruiser.Location = new System.Drawing.Point(116, 12);
+            this.buttonCreateCruiser.Name = "buttonCreateCruiser";
+            this.buttonCreateCruiser.Size = new System.Drawing.Size(83, 23);
+            this.buttonCreateCruiser.TabIndex = 6;
+            this.buttonCreateCruiser.Text = "CreateCruiser";
+            this.buttonCreateCruiser.UseVisualStyleBackColor = true;
+            this.buttonCreateCruiser.Click += new System.EventHandler(this.buttonCreateCruiser_Click);
+            // 
             // ShipForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 424);
+            this.Controls.Add(this.buttonCreateCruiser);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonUp);
-            this.Controls.Add(this.bottonCreate);
+            this.Controls.Add(this.bottonCreateWar);
             this.Controls.Add(this.pictureBoxShip);
             this.Name = "ShipForm";
             this.Text = "Ship";
@@ -121,11 +133,12 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxShip;
-        private System.Windows.Forms.Button bottonCreate;
+        private System.Windows.Forms.Button bottonCreateWar;
         private System.Windows.Forms.Button buttonUp;
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonRight;
         private System.Windows.Forms.Button buttonDown;
+        private System.Windows.Forms.Button buttonCreateCruiser;
     }
 }
 
