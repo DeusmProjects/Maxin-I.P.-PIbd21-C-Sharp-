@@ -12,7 +12,7 @@ namespace Lab1
 {
     public partial class ShipForm : Form
     {
-        private Ship ship;
+        private ITransport ship;
         public ShipForm()
         {
             InitializeComponent();
@@ -33,27 +33,37 @@ namespace Lab1
             switch (name)
             {
                 case "buttonUp":
-                    ship.MoveTransport(Ship.Direction.Up);
+                    ship.MoveTransport(Direction.Up);
                     break;
                 case "buttonDown":
-                    ship.MoveTransport(Ship.Direction.Down);
+                    ship.MoveTransport(Direction.Down);
                     break;
                 case "buttonLeft":
-                    ship.MoveTransport(Ship.Direction.Left);
+                    ship.MoveTransport(Direction.Left);
                     break;
                 case "buttonRight":
 
-                    ship.MoveTransport(Ship.Direction.Right);
+                    ship.MoveTransport(Direction.Right);
                     break;
             }
             Draw();
         }
 
-        private void bottonCreate_Click(object sender, EventArgs e)
+        private void bottonCreateWar_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            ship = new Ship(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Gray,
+            ship = new WarShip(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Gray,
             Color.LightBlue, true, true);
+            ship.SetPosition(rnd.Next(150, 200), rnd.Next(200, 300), pictureBoxShip.Width,
+            pictureBoxShip.Height);
+            Draw();
+        }
+
+        private void buttonCreateCruiser_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            ship = new Cruiser(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Gray);
+
             ship.SetPosition(rnd.Next(150, 200), rnd.Next(200, 300), pictureBoxShip.Width,
             pictureBoxShip.Height);
             Draw();
