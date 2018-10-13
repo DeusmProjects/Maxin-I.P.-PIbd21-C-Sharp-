@@ -16,7 +16,7 @@ namespace Lab1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ShipForm());
+            Application.Run(new FormDock());
         }
     }
 }

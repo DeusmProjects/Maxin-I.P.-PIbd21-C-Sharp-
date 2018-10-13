@@ -17,9 +17,9 @@ namespace Lab1
             private set; get;
         }
         /// <summary>
-        /// Признак наличия иллюминаторов
+        /// Признак наличия флага
         /// </summary>
-        public bool Illum
+        public bool Flag
         {
             private set; get;
         }
@@ -38,13 +38,13 @@ namespace Lab1
         /// <param name="weight">Вес корабля</param>
         /// <param name="mainColor">Основной цвет корпуса</param>
         /// <param name="dopColor">Дополнительный цвет</param>
-        /// <param name="illum">Признак наличия иллюминаторов</param>
+        /// <param name="flag">Признак наличия флага</param>
         /// <param name="gun">Признак наличия пушки</param>
         public WarShip(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
-        illum, bool gun) : base(maxSpeed, weight, mainColor)
+        flag, bool gun) : base(maxSpeed, weight, mainColor)
         {
             DopColor = dopColor;
-            Illum = illum;
+            Flag = flag;
             Gun = gun;
         }
 
@@ -54,23 +54,24 @@ namespace Lab1
             Brush br = new SolidBrush(MainColor);
             base.DrawShip(g);
 
-            //иллюминаторы
-            if (Illum)
+            //флаг
+            if (Flag)
             {
                 br = new SolidBrush(DopColor);
-                g.FillEllipse(br, _startPosX + 40, _startPosY + 12, 15, 15);
-                g.FillEllipse(br, _startPosX + 65, _startPosY + 12, 15, 15);
-                g.FillEllipse(br, _startPosX + 90, _startPosY + 12, 15, 15);
+                g.DrawLine(pen, _startPosX + 20, _startPosY + 50, _startPosX + 20, _startPosY);
+                g.DrawRectangle(pen, _startPosX, _startPosY, 20, 15);
+                g.FillRectangle(br, _startPosX+1, _startPosY+1, 19, 14);
+                
             }
 
             //пушка
             if (Gun)
             {
                 br = new SolidBrush(MainColor);
-                Point point1_1 = new Point((int) _startPosX + 125, (int) _startPosY);
-                Point point2_1 = new Point((int) _startPosX + 195, (int) _startPosY - 20);
-                Point point3_1 = new Point((int) _startPosX + 203, (int) _startPosY - 20);
-                Point point4_1 = new Point((int) _startPosX + 133, (int) _startPosY);
+                Point point1_1 = new Point((int) _startPosX + 123, (int) _startPosY + 50);
+                Point point2_1 = new Point((int) _startPosX + 193, (int) _startPosY + 30);
+                Point point3_1 = new Point((int) _startPosX + 201, (int) _startPosY + 30);
+                Point point4_1 = new Point((int) _startPosX + 131, (int) _startPosY + 50);
                 Point[] curvePoints_1 = { point1_1, point2_1, point3_1, point4_1 };
                 g.FillPolygon(br, curvePoints_1);
                 g.DrawPolygon(pen, curvePoints_1);
