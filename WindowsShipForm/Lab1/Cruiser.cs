@@ -67,29 +67,29 @@ namespace Lab1
 
             //корпус
             Brush br = new SolidBrush(MainColor);
-            Point point1 = new Point((int) _startPosX, (int) _startPosY);
-            Point point2 = new Point((int) _startPosX + 170, (int) _startPosY);
-            Point point3 = new Point((int) _startPosX + 100, (int) _startPosY + 40);
-            Point point4 = new Point((int) _startPosX + 30, (int) _startPosY + 40);
+            Point point1 = new Point((int) _startPosX, (int) _startPosY + 50);
+            Point point2 = new Point((int) _startPosX + 170, (int) _startPosY + 50);
+            Point point3 = new Point((int) _startPosX + 100, (int) _startPosY + 90);
+            Point point4 = new Point((int) _startPosX + 30, (int) _startPosY + 90);
             Point[] curvePoints = { point1, point2, point3, point4 };
             g.FillPolygon(br, curvePoints);
             g.DrawPolygon(pen, curvePoints);
 
             //линии на корпусе
-            g.DrawLine(pen, _startPosX + 6, _startPosY + 7, _startPosX + 154, _startPosY + 7);
-            g.DrawLine(pen, _startPosX + 26, _startPosY + 33, _startPosX + 110, _startPosY + 33);
+            g.DrawLine(pen, _startPosX + 6, _startPosY + 57, _startPosX + 154, _startPosY + 57);
+            g.DrawLine(pen, _startPosX + 26, _startPosY + 83, _startPosX + 110, _startPosY + 83);
 
             //мачта
-            g.DrawLine(pen, _startPosX + 70, _startPosY, _startPosX + 70, _startPosY - 50);
-            g.DrawLine(pen, _startPosX + 65, _startPosY - 45, _startPosX + 75, _startPosY - 45);
-            g.DrawLine(pen, _startPosX + 55, _startPosY - 35, _startPosX + 85, _startPosY - 35);
-            g.DrawLine(pen, _startPosX + 45, _startPosY - 25, _startPosX + 95, _startPosY - 25);
+            g.DrawLine(pen, _startPosX + 70, _startPosY + 50, _startPosX + 70, _startPosY);
+            g.DrawLine(pen, _startPosX + 65, _startPosY + 5, _startPosX + 75, _startPosY + 5);
+            g.DrawLine(pen, _startPosX + 55, _startPosY + 15, _startPosX + 85, _startPosY + 15);
+            g.DrawLine(pen, _startPosX + 45, _startPosY + 25, _startPosX + 95, _startPosY + 25);
 
-            //флаг
-            g.DrawLine(pen, _startPosX + 20, _startPosY, _startPosX + 20, _startPosY - 50);
-            br = new SolidBrush(Color.Red);
-            g.FillRectangle(br, _startPosX, _startPosY - 50, 20, 15);
-
+            //иллюминаторы
+            br = new SolidBrush(Color.LightBlue);
+            g.FillEllipse(br, _startPosX + 40, _startPosY + 62, 15, 15);
+            g.FillEllipse(br, _startPosX + 65, _startPosY + 62, 15, 15);
+            g.FillEllipse(br, _startPosX + 90, _startPosY + 62, 15, 15);
         }
     }
 }
