@@ -12,68 +12,100 @@ namespace Lab1
 {
     public partial class FormDock : Form
     {
-        Dock<ITransport> dock;
+        MultiDocks dock;
+
+        private const int countDocks = 5;
+
         public FormDock()
         {
             InitializeComponent();
-            dock = new Dock<ITransport>(10, pictureBoxDock.Width, pictureBoxDock.Height);
+            dock = new MultiDocks(countDocks, pictureBoxDock.Width, pictureBoxDock.Height);
+            for (int i = 0; i < countDocks; i++)
+            {
+                listBoxDocks.Items.Add("Док " + (i + 1));
+            }
+            listBoxDocks.SelectedIndex = 0;
             Draw();
         }
 
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxDock.Width, pictureBoxDock.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            dock.Draw(gr);
-            pictureBoxDock.Image = bmp;
+            if (listBoxDocks.SelectedIndex > -1)
+            {
+                Bitmap bmp = new Bitmap(pictureBoxDock.Width, pictureBoxDock.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                dock[listBoxDocks.SelectedIndex].Draw(gr);
+                pictureBoxDock.Image = bmp;
+            }
         }
 
         private void buttonParkingCruiser_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxDocks.SelectedIndex > -1)
             {
-                var ship = new Cruiser(100, 1000, dialog.Color);
-                int place = dock + ship;
-                Draw();
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var ship = new Cruiser(100, 1000, dialog.Color);
+                    int place = dock[listBoxDocks.SelectedIndex] + ship;
+                    if (place == -1)
+                    {
+                        MessageBox.Show("Нет свободных мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    Draw();
+                }
             }
         }
 
         private void buttonParkingWarShip_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxDocks.SelectedIndex > -1)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    var ship = new WarShip(100, 1000, dialog.Color, dialogDop.Color, true, true);
-                    int place = dock + ship;
-                    Draw();
+                    ColorDialog dialogDop = new ColorDialog();
+                    if (dialogDop.ShowDialog() == DialogResult.OK)
+                    {
+                        var ship = new WarShip(100, 1000, dialog.Color, dialogDop.Color, true, true);
+                        int place = dock[listBoxDocks.SelectedIndex] + ship;
+                        if (place == -1)
+                        {
+                            MessageBox.Show("Нет свободных мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Draw();
+                    }
                 }
             }
         }
 
         private void buttonTake_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxPlace.Text != "")
+            if (listBoxDocks.SelectedIndex > -1)
             {
-                var ship = dock - Convert.ToInt32(maskedTextBoxPlace.Text);
-                if (ship != null)
+                if (maskedTextBoxPlace.Text != "")
                 {
-                    Bitmap bmp = new Bitmap(pictureBoxShip.Width,
-                    pictureBoxShip.Height);
-                    Graphics gr = Graphics.FromImage(bmp);
-                    ship.SetPosition(5, 5, pictureBoxDock.Width, pictureBoxShip.Height);
-                    ship.DrawShip(gr);
-                    pictureBoxShip.Image = bmp;
-                } else
-                {
-                    Bitmap bmp = new Bitmap(pictureBoxShip.Width, pictureBoxShip.Height);
-                    pictureBoxShip.Image = bmp;
+                    var ship = dock[listBoxDocks.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
+                    if (ship != null)
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxShip.Width, pictureBoxShip.Height);
+                        Graphics gr = Graphics.FromImage(bmp);
+                        ship.SetPosition(5, 5, pictureBoxShip.Width, pictureBoxShip.Height);
+                        ship.DrawShip(gr);
+                        pictureBoxShip.Image = bmp;
+                    } else
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxShip.Width, pictureBoxShip.Height);
+                        pictureBoxShip.Image = bmp;
+                    }
+                    Draw();
                 }
-                Draw();
             }
+        }
+
+        private void listBoxDocks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
         }
     }
 }

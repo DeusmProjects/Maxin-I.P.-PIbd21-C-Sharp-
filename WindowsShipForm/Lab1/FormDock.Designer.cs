@@ -37,9 +37,11 @@
             this.labelPlace = new System.Windows.Forms.Label();
             this.maskedTextBoxPlace = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxDock)).BeginInit();
+            this.listBoxDocks = new System.Windows.Forms.ListBox();
+            this.labelDocks = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).BeginInit();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxShip)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxDock
@@ -55,7 +57,7 @@
             // 
             // buttonParkingCruiser
             // 
-            this.buttonParkingCruiser.Location = new System.Drawing.Point(754, 54);
+            this.buttonParkingCruiser.Location = new System.Drawing.Point(759, 244);
             this.buttonParkingCruiser.Name = "buttonParkingCruiser";
             this.buttonParkingCruiser.Size = new System.Drawing.Size(96, 57);
             this.buttonParkingCruiser.TabIndex = 1;
@@ -65,7 +67,7 @@
             // 
             // buttonParkingWarShip
             // 
-            this.buttonParkingWarShip.Location = new System.Drawing.Point(755, 117);
+            this.buttonParkingWarShip.Location = new System.Drawing.Point(760, 307);
             this.buttonParkingWarShip.Name = "buttonParkingWarShip";
             this.buttonParkingWarShip.Size = new System.Drawing.Size(96, 57);
             this.buttonParkingWarShip.TabIndex = 2;
@@ -81,7 +83,7 @@
             this.groupBox.Controls.Add(this.maskedTextBoxPlace);
             this.groupBox.Controls.Add(this.label1);
             this.groupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox.Location = new System.Drawing.Point(712, 200);
+            this.groupBox.Location = new System.Drawing.Point(702, 388);
             this.groupBox.Name = "groupBox";
             this.groupBox.Size = new System.Drawing.Size(213, 280);
             this.groupBox.TabIndex = 4;
@@ -130,22 +132,43 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Забрать корабль";
             // 
+            // listBoxDocks
+            // 
+            this.listBoxDocks.FormattingEnabled = true;
+            this.listBoxDocks.Location = new System.Drawing.Point(740, 102);
+            this.listBoxDocks.Name = "listBoxDocks";
+            this.listBoxDocks.Size = new System.Drawing.Size(120, 95);
+            this.listBoxDocks.TabIndex = 5;
+            this.listBoxDocks.SelectedIndexChanged += new System.EventHandler(this.listBoxDocks_SelectedIndexChanged);
+            // 
+            // labelDocks
+            // 
+            this.labelDocks.AutoSize = true;
+            this.labelDocks.Location = new System.Drawing.Point(767, 80);
+            this.labelDocks.Name = "labelDocks";
+            this.labelDocks.Size = new System.Drawing.Size(34, 13);
+            this.labelDocks.TabIndex = 6;
+            this.labelDocks.Text = "Доки";
+            // 
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 677);
+            this.Controls.Add(this.labelDocks);
+            this.Controls.Add(this.listBoxDocks);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.buttonParkingWarShip);
             this.Controls.Add(this.buttonParkingCruiser);
             this.Controls.Add(this.pictureBoxDock);
             this.Name = "FormDock";
             this.Text = "FormDock";
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxDock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).EndInit();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.pictureBoxShip)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -160,5 +183,7 @@
         private System.Windows.Forms.Label labelPlace;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlace;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxDocks;
+        private System.Windows.Forms.Label labelDocks;
     }
 }
