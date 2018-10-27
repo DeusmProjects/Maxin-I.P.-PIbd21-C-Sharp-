@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    class Dock<T> where T : class, ITransport
+    public class Dock<T> where T : class, ITransport
     {
-        private T[] _places;
+        private Dictionary<int, T> _places;
+        private int _maxCount;
         private int PictureWidth
         {
             get; set;
@@ -23,23 +24,25 @@ namespace Lab1
 
         public Dock(int sizes, int pictureWidth, int pictureHeight)
         {
-            _places = new T[sizes];
+            _maxCount = sizes;
+            _places = new Dictionary<int, T>();
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
-            for (int i = 0; i < _places.Length; i++)
-            {
-                _places[i] = null;
-            }
         }
 
         public static int operator +(Dock<T> d, T ship)
         {
-            for (int i = 0; i < d._places.Length; i++)
+            if(d._places.Count == d._maxCount)
+            {
+                return -1;
+            }
+
+            for (int i = 0; i < d._maxCount; i++)
             {
                 if (d.CheckFreePlace(i))
                 {
                     d._places[i] = ship;
-                    if (i < d._places.Length / 2)
+                    if (i < d._maxCount / 2)
                     {
                         d._places[i].SetPosition(3 + i / 5 * d._placeSizeWidth + 5, i % 5 * d._placeSizeHeight + 15, d.PictureWidth, d.PictureHeight);
                     } else
@@ -54,14 +57,10 @@ namespace Lab1
 
         public static T operator -(Dock<T> d, int index)
         {
-            if (index < 0 || index > d._places.Length)
-            {
-                return null;
-            }
             if (!d.CheckFreePlace(index))
             {
                 T ship = d._places[index];
-                d._places[index] = null;
+                d._places.Remove(index);
                 return ship;
             }
             return null;
@@ -69,18 +68,16 @@ namespace Lab1
 
         private bool CheckFreePlace(int index)
         {
-            return _places[index] == null;
+            return !_places.ContainsKey(index);
         }
 
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
+            var keys = _places.Keys.ToList();
+            for (int i = 0; i < keys.Count; i++)
             {
-                if (!CheckFreePlace(i))
-                {//если место не пустое
-                    _places[i].DrawShip(g);
-                }
+                _places[keys[i]].DrawShip(g);
             }
         }
 
@@ -88,7 +85,7 @@ namespace Lab1
         {
             Pen pen = new Pen(Color.Black, 7);
             //границы праковки
-            g.DrawRectangle(pen, 0, 0, (_places.Length / 4) * _placeSizeWidth, 600);
+            g.DrawRectangle(pen, 0, 0, (_maxCount / 4) * _placeSizeWidth, 600);
             for (int i = 0; i < 1; i++)
             {//отрисовываем, по 5 мест на линии
                 for (int j = 0; j < 5; ++j)
