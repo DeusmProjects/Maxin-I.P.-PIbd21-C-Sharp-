@@ -115,7 +115,7 @@ namespace Lab1
         {
             shipConfig = new FormShipConfig();
             shipConfig.AddEvent(AddShip);
-            shipConfig.ShowDialog();
+            shipConfig.Show();
         }
 
         private void AddShip(ITransport ship)
