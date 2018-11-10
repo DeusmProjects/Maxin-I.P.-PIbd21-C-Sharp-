@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.pictureBoxDock = new System.Windows.Forms.PictureBox();
-            this.buttonParkingCruiser = new System.Windows.Forms.Button();
-            this.buttonParkingWarShip = new System.Windows.Forms.Button();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.pictureBoxShip = new System.Windows.Forms.PictureBox();
             this.buttonTake = new System.Windows.Forms.Button();
@@ -39,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxDocks = new System.Windows.Forms.ListBox();
             this.labelDocks = new System.Windows.Forms.Label();
+            this.buttonChooseShip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDock)).BeginInit();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxShip)).BeginInit();
@@ -54,26 +53,6 @@
             this.pictureBoxDock.Size = new System.Drawing.Size(615, 603);
             this.pictureBoxDock.TabIndex = 0;
             this.pictureBoxDock.TabStop = false;
-            // 
-            // buttonParkingCruiser
-            // 
-            this.buttonParkingCruiser.Location = new System.Drawing.Point(759, 244);
-            this.buttonParkingCruiser.Name = "buttonParkingCruiser";
-            this.buttonParkingCruiser.Size = new System.Drawing.Size(96, 57);
-            this.buttonParkingCruiser.TabIndex = 1;
-            this.buttonParkingCruiser.Text = "Пришвартовать крейсер";
-            this.buttonParkingCruiser.UseVisualStyleBackColor = true;
-            this.buttonParkingCruiser.Click += new System.EventHandler(this.buttonParkingCruiser_Click);
-            // 
-            // buttonParkingWarShip
-            // 
-            this.buttonParkingWarShip.Location = new System.Drawing.Point(760, 307);
-            this.buttonParkingWarShip.Name = "buttonParkingWarShip";
-            this.buttonParkingWarShip.Size = new System.Drawing.Size(96, 57);
-            this.buttonParkingWarShip.TabIndex = 2;
-            this.buttonParkingWarShip.Text = "Пришвартовать военный корабль";
-            this.buttonParkingWarShip.UseVisualStyleBackColor = true;
-            this.buttonParkingWarShip.Click += new System.EventHandler(this.buttonParkingWarShip_Click);
             // 
             // groupBox
             // 
@@ -150,16 +129,25 @@
             this.labelDocks.TabIndex = 6;
             this.labelDocks.Text = "Доки";
             // 
+            // buttonChooseShip
+            // 
+            this.buttonChooseShip.Location = new System.Drawing.Point(715, 285);
+            this.buttonChooseShip.Name = "buttonChooseShip";
+            this.buttonChooseShip.Size = new System.Drawing.Size(183, 79);
+            this.buttonChooseShip.TabIndex = 7;
+            this.buttonChooseShip.Text = "Выбрать корабль";
+            this.buttonChooseShip.UseVisualStyleBackColor = true;
+            this.buttonChooseShip.Click += new System.EventHandler(this.buttonChooseShip_Click);
+            // 
             // FormDock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 677);
+            this.Controls.Add(this.buttonChooseShip);
             this.Controls.Add(this.labelDocks);
             this.Controls.Add(this.listBoxDocks);
             this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.buttonParkingWarShip);
-            this.Controls.Add(this.buttonParkingCruiser);
             this.Controls.Add(this.pictureBoxDock);
             this.Name = "FormDock";
             this.Text = "FormDock";
@@ -175,8 +163,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxDock;
-        private System.Windows.Forms.Button buttonParkingCruiser;
-        private System.Windows.Forms.Button buttonParkingWarShip;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.PictureBox pictureBoxShip;
         private System.Windows.Forms.Button buttonTake;
@@ -185,5 +171,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxDocks;
         private System.Windows.Forms.Label labelDocks;
+        private System.Windows.Forms.Button buttonChooseShip;
     }
 }

@@ -12,6 +12,8 @@ namespace Lab1
 {
     public partial class FormDock : Form
     {
+        FormShipConfig shipConfig;
+
         MultiDocks dock;
 
         private const int countDocks = 5;
@@ -53,7 +55,8 @@ namespace Lab1
                         MessageBox.Show("Нет свободных мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     Draw();
-                }
+                }
+
             }
         }
 
@@ -107,5 +110,27 @@ namespace Lab1
         {
             Draw();
         }
+
+        private void buttonChooseShip_Click(object sender, EventArgs e)
+        {
+            shipConfig = new FormShipConfig();
+            shipConfig.AddEvent(AddShip);
+            shipConfig.ShowDialog();
+        }
+
+        private void AddShip(ITransport ship)
+        {
+            if (ship != null && listBoxDocks.SelectedIndex > -1)
+            {
+                int place = dock[listBoxDocks.SelectedIndex] + ship;
+                if (place > -1)
+                {
+                    Draw();
+                } else
+                {
+                    MessageBox.Show("Корабль не удалось поставить");
+                }
+            }
+        }
     }
 }
