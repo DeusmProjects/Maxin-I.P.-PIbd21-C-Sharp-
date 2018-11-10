@@ -77,5 +77,10 @@ namespace Lab1
                 g.DrawPolygon(pen, curvePoints_1);
             }
         }
+
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }
