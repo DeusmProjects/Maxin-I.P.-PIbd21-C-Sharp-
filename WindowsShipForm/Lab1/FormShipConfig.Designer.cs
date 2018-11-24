@@ -184,7 +184,7 @@
             // 
             // panelPink
             // 
-            this.panelPink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.panelPink.BackColor = System.Drawing.Color.Fuchsia;
             this.panelPink.Location = new System.Drawing.Point(85, 103);
             this.panelPink.Name = "panelPink";
             this.panelPink.Size = new System.Drawing.Size(35, 34);

@@ -25,6 +25,17 @@ namespace Lab1
             MainColor = mainColor;
         }
 
+        public Cruiser(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
+
         public override void MoveTransport(Direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
@@ -90,6 +101,11 @@ namespace Lab1
             g.FillEllipse(br, _startPosX + 40, _startPosY + 62, 15, 15);
             g.FillEllipse(br, _startPosX + 65, _startPosY + 62, 15, 15);
             g.FillEllipse(br, _startPosX + 90, _startPosY + 62, 15, 15);
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
     }
 }

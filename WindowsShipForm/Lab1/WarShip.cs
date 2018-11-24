@@ -40,14 +40,26 @@ namespace Lab1
         /// <param name="dopColor">Дополнительный цвет</param>
         /// <param name="flag">Признак наличия флага</param>
         /// <param name="gun">Признак наличия пушки</param>
-        public WarShip(int maxSpeed, float weight, Color mainColor, Color dopColor, bool
-        flag, bool gun) : base(maxSpeed, weight, mainColor)
+        public WarShip(int maxSpeed, float weight, Color mainColor, Color dopColor, bool flag, bool gun) : base(maxSpeed, weight, mainColor)
         {
             DopColor = dopColor;
             Flag = flag;
             Gun = gun;
         }
 
+        public WarShip(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Flag = Convert.ToBoolean(strs[4]);
+                Gun = Convert.ToBoolean(strs[5]);
+            }
+        }
         public override void DrawShip(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -81,6 +93,11 @@ namespace Lab1
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + Flag + ";" + Gun;
         }
     }
 }
