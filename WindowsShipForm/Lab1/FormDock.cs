@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +19,12 @@ namespace Lab1
 
         private const int countDocks = 5;
 
+        private Logger logger;
+
         public FormDock()
         {
             InitializeComponent();
+            logger = LogManager.GetCurrentClassLogger();
             dock = new MultiDocks(countDocks, pictureBoxDock.Width, pictureBoxDock.Height);
             for (int i = 0; i < countDocks; i++)
             {
@@ -88,20 +92,26 @@ namespace Lab1
             {
                 if (maskedTextBoxPlace.Text != "")
                 {
-                    var ship = dock[listBoxDocks.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
-                    if (ship != null)
+                    try
                     {
+                        var ship = dock[listBoxDocks.SelectedIndex] - Convert.ToInt32(maskedTextBoxPlace.Text);
                         Bitmap bmp = new Bitmap(pictureBoxShip.Width, pictureBoxShip.Height);
                         Graphics gr = Graphics.FromImage(bmp);
                         ship.SetPosition(5, 5, pictureBoxShip.Width, pictureBoxShip.Height);
                         ship.DrawShip(gr);
                         pictureBoxShip.Image = bmp;
-                    } else
+                        logger.Info("Изъят корабль " + ship.ToString() + " с места " +
+                       maskedTextBoxPlace.Text);
+                        Draw();
+                    } catch (DockNotFoundException ex)
                     {
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Bitmap bmp = new Bitmap(pictureBoxShip.Width, pictureBoxShip.Height);
                         pictureBoxShip.Image = bmp;
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    Draw();
                 }
             }
         }
@@ -122,44 +132,55 @@ namespace Lab1
         {
             if (ship != null && listBoxDocks.SelectedIndex > -1)
             {
-                int place = dock[listBoxDocks.SelectedIndex] + ship;
-                if (place > -1)
+                try
                 {
+                    int place = dock[listBoxDocks.SelectedIndex] + ship;
+                    logger.Info("Добавлен корабль " + ship.ToString() + " на место " + place);
                     Draw();
-                } else
+                } catch (DockOverflowException ex)
                 {
-                    MessageBox.Show("Корабль не удалось поставить");
-                }
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }              
             }
         }
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (dock.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    dock.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
+                } catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (dock.LoadData(openFileDialog.FileName))
+                try
                 {
+                    dock.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
+                } catch (DockOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
-            }
+            }
         }
     }
 }
