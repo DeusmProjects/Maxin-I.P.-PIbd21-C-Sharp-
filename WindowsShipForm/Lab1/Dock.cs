@@ -34,7 +34,7 @@ namespace Lab1
         {
             if(d._places.Count == d._maxCount)
             {
-                return -1;
+                throw new DockOverflowException();
             }
 
             for (int i = 0; i < d._maxCount; i++)
@@ -63,7 +63,7 @@ namespace Lab1
                 d._places.Remove(index);
                 return ship;
             }
-            return null;
+            throw new DockNotFoundException(index);
         }
 
         private bool CheckFreePlace(int index)
@@ -112,7 +112,7 @@ namespace Lab1
                 {
                     return _places[ind];
                 }
-                return null;
+                throw new DockNotFoundException(ind);
             }
             set
             {
@@ -120,6 +120,9 @@ namespace Lab1
                 {
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5 * _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                } else
+                {
+                    throw new DockOccupiedPlaceException(ind);
                 }
             }
         }

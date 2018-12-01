@@ -39,7 +39,7 @@ namespace Lab1
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -55,9 +55,9 @@ namespace Lab1
                         WriteToFile("Dock" + Environment.NewLine, fs);
                         for (int i = 0; i < countPlaces; i++)
                         {
-                            var ship = level[i];
-                            if (ship != null)
+                            try
                             {
+                                var ship = level[i];                      
                                 if (ship.GetType().Name == "Cruiser")
                                 {
                                     WriteToFile(i + ":Cruiser:", fs);
@@ -67,12 +67,16 @@ namespace Lab1
                                     WriteToFile(i + ":WarShip:", fs);
                                 }
                                 WriteToFile(ship + Environment.NewLine, fs);
+                            } 
+                            catch(Exception e)
+                            {
+
                             }
+                            finally { }
                         }
                     }
                 }
             }
-            return true;
         }
 
         private void WriteToFile(string text, FileStream stream)
@@ -81,11 +85,11 @@ namespace Lab1
             stream.Write(info, 0, info.Length);
         }
 
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
             string bufferTextFromFile = "";
             using (FileStream fs = new FileStream(filename, FileMode.Open))
@@ -112,7 +116,7 @@ namespace Lab1
                 dockNumbers = new List<Dock<ITransport>>(count);
             } else
             {
-                return false;
+                throw new Exception("Неверный формат файла");
             }
             int counter = -1;
             ITransport ship = null;
@@ -137,7 +141,6 @@ namespace Lab1
                 }
                 dockNumbers[counter][Convert.ToInt32(strs[i].Split(':')[0])] = ship;
             }
-            return true;
         }
     }
 }
