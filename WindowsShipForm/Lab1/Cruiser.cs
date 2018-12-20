@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    public class Cruiser : Ship
+    public class Cruiser : Ship, IEquatable<Cruiser>, IComparable<Cruiser>
     {
         /// <summary>
         /// Ширина отрисовки корабля
@@ -106,6 +106,74 @@ namespace Lab1
         public override string ToString()
         {
             return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
+        }
+
+        public bool Equals(Cruiser other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            if(GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if(MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if(MainColor != other.MainColor)
+            {
+                return false;
+            }
+            if(Weight != other.Weight)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj == null)
+            {
+                return false;
+            }
+            Cruiser shipObj = obj as Cruiser;
+            if(shipObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(shipObj);
+            }
+        }
+
+        public int CompareTo(Cruiser other)
+        {
+            if(other == null)
+            {
+                return 1;
+            }
+            if(MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (MainColor != other.MainColor)
+            {
+                MainColor.Name.CompareTo(other.MainColor.Name);
+            }
+            return 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    public class Dock<T> where T : class, ITransport
+    public class Dock<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Dock<T>>
+        where T : class, ITransport
     {
         private Dictionary<int, T> _places;
         private int _maxCount;
@@ -19,8 +21,19 @@ namespace Lab1
         {
             get; set;
         }
+
         private int _placeSizeWidth = 310;
         private int _placeSizeHeight = 120;
+
+        private int _currentIndex;
+
+        public int GetKey
+        {
+            get
+            {
+                return _places.Keys.ToList()[_currentIndex];
+            }
+        }
 
         public Dock(int sizes, int pictureWidth, int pictureHeight)
         {
@@ -36,12 +49,15 @@ namespace Lab1
             {
                 throw new DockOverflowException();
             }
-
+            if (d._places.ContainsValue(ship))
+            {
+                throw new DockAlreadyHaveException();
+            }
             for (int i = 0; i < d._maxCount; i++)
             {
                 if (d.CheckFreePlace(i))
                 {
-                    d._places[i] = ship;
+                    d._places.Add(i, ship);
                     if (i < d._maxCount / 2)
                     {
                         d._places[i].SetPosition(3 + i / 5 * d._placeSizeWidth + 5, i % 5 * d._placeSizeHeight + 15, d.PictureWidth, d.PictureHeight);
@@ -74,10 +90,9 @@ namespace Lab1
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            var keys = _places.Keys.ToList();
-            for (int i = 0; i < keys.Count; i++)
+            foreach(var ship in _places)
             {
-                _places[keys[i]].DrawShip(g);
+                ship.Value.DrawShip(g);
             }
         }
 
@@ -125,6 +140,90 @@ namespace Lab1
                     throw new DockOccupiedPlaceException(ind);
                 }
             }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int CompareTo(Dock<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is Cruiser && other._places[thisKeys[i]] is WarShip)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is WarShip && other._places[thisKeys[i]] is Cruiser)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Cruiser && other._places[thisKeys[i]] is Cruiser)
+                    {
+                        return (_places[thisKeys[i]] is Cruiser).CompareTo(other._places[thisKeys[i]] is Cruiser);
+                    }
+                    if (_places[thisKeys[i]] is WarShip && other._places[thisKeys[i]] is WarShip)
+                    {
+                        return (_places[thisKeys[i]] is WarShip).CompareTo(other._places[thisKeys[i]] is WarShip);
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

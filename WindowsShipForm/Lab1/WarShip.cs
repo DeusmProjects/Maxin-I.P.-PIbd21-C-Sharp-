@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab1
 {
-    class WarShip : Cruiser
+    class WarShip : Cruiser, IEquatable<WarShip>, IComparable<WarShip>
     {
         /// <summary>
         /// Дополнительный цвет
@@ -59,13 +59,13 @@ namespace Lab1
                 Flag = Convert.ToBoolean(strs[4]);
                 Gun = Convert.ToBoolean(strs[5]);
             }
-        }
+        }
+
         public override void DrawShip(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
             Brush br = new SolidBrush(MainColor);
             base.DrawShip(g);
-
             //флаг
             if (Flag)
             {
@@ -75,7 +75,6 @@ namespace Lab1
                 g.FillRectangle(br, _startPosX+1, _startPosY+1, 19, 14);
                 
             }
-
             //пушка
             if (Gun)
             {
@@ -98,6 +97,72 @@ namespace Lab1
         public override string ToString()
         {
             return base.ToString() + ";" + DopColor.Name + ";" + Flag + ";" + Gun;
+        }
+
+        public int CompareTo(WarShip other)
+        {
+            var res = (this is Cruiser).CompareTo(other is Cruiser);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }            if(Gun != other.Gun)
+            {
+                return Gun.CompareTo(other.Gun);
+            }
+            if (Flag != other.Flag)
+            {
+                return Flag.CompareTo(other.Flag);
+            }
+            return 0;
+        }
+
+        public bool Equals(WarShip other)
+        {
+            var res = (this as Cruiser).Equals(other as Cruiser);
+            if (!res)
+            {
+                return res;
+            }            if(GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }            if (Gun != other.Gun)
+            {
+                return false;
+            }
+            if (Flag != other.Flag)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            WarShip shipObj = obj as WarShip;
+            if (shipObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(shipObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
