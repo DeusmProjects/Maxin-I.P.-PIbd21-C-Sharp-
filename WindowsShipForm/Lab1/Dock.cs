@@ -161,7 +161,7 @@ namespace Lab1
 
         public void Dispose()
         {
-           // _places.Clear();
+            _places.Clear();
         }
 
         public bool MoveNext()

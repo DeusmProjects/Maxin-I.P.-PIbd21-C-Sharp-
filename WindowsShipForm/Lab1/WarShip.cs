@@ -128,22 +128,22 @@ namespace Lab1
             {
                 return res;
             }
-            //if(GetType().Name != other.GetType().Name)
-            //{
-            //    return false;
-            //}
-            //if (DopColor != other.DopColor)
-            //{
-            //    return false;
-            //}
-            //if (Gun != other.Gun)
-            //{
-            //    return false;
-            //}
-            //if (Flag != other.Flag)
-            //{
-            //    return false;
-            //}
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Gun != other.Gun)
+            {
+                return false;
+            }
+            if (Flag != other.Flag)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -156,7 +156,7 @@ namespace Lab1
             WarShip shipObj = obj as WarShip;
             if (shipObj == null)
             {
-                return Equals(obj as Cruiser);
+                return false;
             }
             else
             {

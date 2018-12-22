@@ -126,10 +126,10 @@ namespace Lab1
             {
                 return false;
             }
-            //if(Weight != other.Weight)
-            //{
-            //    return false;
-            //}
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
             return true;
         }
 
