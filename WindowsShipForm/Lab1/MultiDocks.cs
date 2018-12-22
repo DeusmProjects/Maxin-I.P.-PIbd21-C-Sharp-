@@ -14,7 +14,8 @@ namespace Lab1
 
         private int pictureWidth;
 
-        private int pictureHeight;
+        private int pictureHeight;
+
         public MultiDocks(int countDocks, int pictureWidth, int pictureHeight)
         {
             dockNumbers = new List<Dock<ITransport>>();
@@ -22,7 +23,8 @@ namespace Lab1
             this.pictureHeight = pictureHeight;
 
             dockNumbers = new List<Dock<ITransport>>();
-            for (int i = 0; i < countDocks; ++i)            {
+            for (int i = 0; i < countDocks; ++i)
+            {
                 dockNumbers.Add(new Dock<ITransport>(countPlaces, pictureWidth, pictureHeight));
             }
         }
@@ -53,26 +55,17 @@ namespace Lab1
                     foreach (var level in dockNumbers)
                     {
                         WriteToFile("Dock" + Environment.NewLine, fs);
-                        for (int i = 0; i < countPlaces; i++)
+                        foreach (ITransport ship in level)
                         {
-                            try
+                            if (ship.GetType().Name == "Cruiser")
                             {
-                                var ship = level[i];                      
-                                if (ship.GetType().Name == "Cruiser")
-                                {
-                                    WriteToFile(i + ":Cruiser:", fs);
-                                }
-                                if (ship.GetType().Name == "WarShip")
-                                {
-                                    WriteToFile(i + ":WarShip:", fs);
-                                }
-                                WriteToFile(ship + Environment.NewLine, fs);
-                            } 
-                            catch(Exception e)
-                            {
-
+                                WriteToFile(level.GetKey + ":Cruiser:", fs);
                             }
-                            finally { }
+                            if (ship.GetType().Name == "WarShip")
+                            {
+                                WriteToFile(level.GetKey + ":WarShip:", fs);
+                            }
+                            WriteToFile(ship + Environment.NewLine, fs);
                         }
                     }
                 }
@@ -119,12 +112,14 @@ namespace Lab1
                 throw new Exception("Неверный формат файла");
             }
             int counter = -1;
+            int counterShip = 0;
             ITransport ship = null;
             for (int i = 1; i < strs.Length; ++i)
             {
                 if (strs[i] == "Dock")
                 {
                     counter++;
+                    counterShip = 0;
                     dockNumbers.Add(new Dock<ITransport>(countPlaces, pictureWidth, pictureHeight));
                     continue;
                 }
@@ -139,8 +134,13 @@ namespace Lab1
                 {
                     ship = new WarShip(strs[i].Split(':')[2]);
                 }
-                dockNumbers[counter][Convert.ToInt32(strs[i].Split(':')[0])] = ship;
+                dockNumbers[counter][counterShip++] = ship;
             }
+        }
+
+        public void Sort()
+        {
+            dockNumbers.Sort();
         }
     }
 }

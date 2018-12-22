@@ -137,10 +137,17 @@ namespace Lab1
                     int place = dock[listBoxDocks.SelectedIndex] + ship;
                     logger.Info("Добавлен корабль " + ship.ToString() + " на место " + place);
                     Draw();
-                } catch (DockOverflowException ex)
+                }
+                catch (DockOverflowException ex)
                 {
                     MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } catch (Exception ex)
+                }
+                catch (DockAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }              
@@ -181,6 +188,13 @@ namespace Lab1
                 }
                 Draw();
             }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            dock.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
         }
     }
 }
