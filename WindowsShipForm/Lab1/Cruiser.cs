@@ -114,22 +114,22 @@ namespace Lab1
             {
                 return false;
             }
-            if(GetType().Name != other.GetType().Name)
+            if (GetType().Name != other.GetType().Name)
             {
                 return false;
             }
-            if(MaxSpeed != other.MaxSpeed)
+            if (MaxSpeed != other.MaxSpeed)
             {
                 return false;
             }
-            if(MainColor != other.MainColor)
+            if (MainColor != other.MainColor)
             {
                 return false;
             }
-            if(Weight != other.Weight)
-            {
-                return false;
-            }
+            //if(Weight != other.Weight)
+            //{
+            //    return false;
+            //}
             return true;
         }
 
@@ -166,7 +166,7 @@ namespace Lab1
             }
             if (MainColor != other.MainColor)
             {
-                MainColor.Name.CompareTo(other.MainColor.Name);
+                return MainColor.Name.CompareTo(other.MainColor.Name);
             }
             return 0;
         }

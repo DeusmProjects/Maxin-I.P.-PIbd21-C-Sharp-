@@ -109,7 +109,8 @@ namespace Lab1
             if (DopColor != other.DopColor)
             {
                 DopColor.Name.CompareTo(other.DopColor.Name);
-            }            if(Gun != other.Gun)
+            }
+            if(Gun != other.Gun)
             {
                 return Gun.CompareTo(other.Gun);
             }
@@ -126,21 +127,23 @@ namespace Lab1
             if (!res)
             {
                 return res;
-            }            if(GetType().Name != other.GetType().Name)
-            {
-                return false;
             }
-            if (DopColor != other.DopColor)
-            {
-                return false;
-            }            if (Gun != other.Gun)
-            {
-                return false;
-            }
-            if (Flag != other.Flag)
-            {
-                return false;
-            }
+            //if(GetType().Name != other.GetType().Name)
+            //{
+            //    return false;
+            //}
+            //if (DopColor != other.DopColor)
+            //{
+            //    return false;
+            //}
+            //if (Gun != other.Gun)
+            //{
+            //    return false;
+            //}
+            //if (Flag != other.Flag)
+            //{
+            //    return false;
+            //}
             return true;
         }
 
@@ -153,13 +156,14 @@ namespace Lab1
             WarShip shipObj = obj as WarShip;
             if (shipObj == null)
             {
-                return false;
+                return Equals(obj as Cruiser);
             }
             else
             {
                 return Equals(shipObj);
             }
-        }
+        }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

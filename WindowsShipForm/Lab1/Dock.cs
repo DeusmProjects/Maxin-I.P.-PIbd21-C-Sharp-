@@ -41,6 +41,7 @@ namespace Lab1
             _places = new Dictionary<int, T>();
             PictureWidth = pictureWidth;
             PictureHeight = pictureHeight;
+            _currentIndex = -1;
         }
 
         public static int operator +(Dock<T> d, T ship)
@@ -160,7 +161,7 @@ namespace Lab1
 
         public void Dispose()
         {
-            _places.Clear();
+           // _places.Clear();
         }
 
         public bool MoveNext()
